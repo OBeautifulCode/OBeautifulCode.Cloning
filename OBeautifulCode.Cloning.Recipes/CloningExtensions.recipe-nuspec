@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>OBeautifulCode.Cloning.Recipes.CloningExtensions</id>
+    <description>Various extension methods for cloning objects.</description>
+    <tags>TAGS_HERE snippet codeinclude utility shared recipe Cloning</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Cloning/main/OBeautifulCode.Cloning.Recipes/nuget-icon.png</iconUrl>
+    <dependencies>
+      <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.15" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Class1.cs" target="content\net462\.recipes\OBeautifulCode.Cloning\Class1.cs" />
+  </files>
+</package>
