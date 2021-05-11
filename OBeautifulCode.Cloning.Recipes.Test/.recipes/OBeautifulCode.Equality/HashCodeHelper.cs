@@ -9,6 +9,7 @@
 
 namespace OBeautifulCode.Equality.Recipes
 {
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Reflection;
@@ -126,6 +127,19 @@ namespace OBeautifulCode.Equality.Recipes
                 else if (valueType.IsClosedSystemEnumerableType())
                 {
                     result = (HashCodeHelper)HashUnorderedCollectionMethodInfo.MakeGenericMethod(valueType.GenericTypeArguments).Invoke(this, new[] { (object)item });
+                }
+                else if ((valueType == typeof(DateTime)) || (valueType == typeof(DateTime?)))
+                {
+                    var hashCode = this.Value;
+
+                    hashCode = (hashCode * HashCodeMultiplier) + (item?.GetHashCode() ?? 0);
+
+                    if (item != null)
+                    {
+                        hashCode = (hashCode * HashCodeMultiplier) + ((DateTime)(object)item).Kind.GetHashCode();
+                    }
+
+                    result = new HashCodeHelper(hashCode);
                 }
                 else
                 {

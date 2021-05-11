@@ -7,9 +7,11 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Cloning/main/OBeautifulCode.Cloning.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.15" />
+      <dependency id="OBeautifulCode.Type" version="1.0.79" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.79" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Class1.cs" target="content\net462\.recipes\OBeautifulCode.Cloning\Class1.cs" />
+    <file src="CloningExtensions.cs" target="content\net462\.recipes\OBeautifulCode.Cloning\CloningExtensions.cs" />
   </files>
 </package>
