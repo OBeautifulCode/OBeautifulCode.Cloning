@@ -7,8 +7,8 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Cloning/main/OBeautifulCode.Cloning.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.15" />
-      <dependency id="OBeautifulCode.Type" version="1.0.79" />
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.79" />
+      <dependency id="OBeautifulCode.Type" version="1.0.80" />
+      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.80" />
     </dependencies>
   </metadata>
   <files>
