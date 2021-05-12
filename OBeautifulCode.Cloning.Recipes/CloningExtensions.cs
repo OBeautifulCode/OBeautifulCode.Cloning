@@ -394,6 +394,10 @@ namespace OBeautifulCode.Cloning.Recipes
 
                     var valueType = runtimeType.GetClosedSystemDictionaryValueType();
 
+                    // Here we are intentionally creating the same runtime type when the declared type is an interface (e.g. IReadOnlyDictionary<,>).
+                    // We want the original object to be equal to the cloned object, using OBeautifulCode.Equality.Recipes.EqualityExtensions.IsEqualTo().
+                    // For a declared type of type(object), that method will return false if two objects are not of the same runtime type.
+                    // See notes in that method and the related ObjectEqualityComparer for why.
                     if (runtimeType.GetGenericTypeDefinition() == typeof(Dictionary<,>))
                     {
                         result = DeepCloneDictionaryMethod.MakeGenericMethod(keyType, valueType).Invoke(null, new object[] { value });
@@ -415,6 +419,8 @@ namespace OBeautifulCode.Cloning.Recipes
                 {
                     var elementType = runtimeType.GetClosedSystemCollectionElementType();
 
+                    // Here we are intentionally creating the same runtime type when the declared type is an interface (e.g. IReadOnlyList<,>)
+                    // See note above in Dictionary logic.
                     if (runtimeType.GetGenericTypeDefinition() == typeof(List<>))
                     {
                         result = DeepCloneListMethod.MakeGenericMethod(elementType).Invoke(null, new object[] { value });
