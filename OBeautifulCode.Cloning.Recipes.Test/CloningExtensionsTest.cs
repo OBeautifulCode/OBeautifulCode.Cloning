@@ -28,14 +28,19 @@ namespace OBeautifulCode.Cloning.Recipes.Test
         public static void DeepClone_T___Should_throw_ArgumentNullException___When_parameter_value_is_null()
         {
             // Arrange
-            string value = null;
+            string value1 = null;
+            DateTime? value2 = null;
 
             // Act
-            var actual = Record.Exception(() => value.DeepClone<string>());
+            var actual1 = Record.Exception(() => value1.DeepClone<string>());
+            var actual2 = Record.Exception(() => value2.DeepClone<DateTime?>());
 
             // Assert
-            actual.AsTest().Must().BeOfType<ArgumentNullException>();
-            actual.Message.AsTest().Must().ContainString("value");
+            actual1.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual1.Message.AsTest().Must().ContainString("value");
+
+            actual2.AsTest().Must().BeOfType<ArgumentNullException>();
+            actual2.Message.AsTest().Must().ContainString("value");
         }
 
         [Fact]
