@@ -44,6 +44,7 @@ namespace OBeautifulCode.Cloning.Recipes.Test
             // Arrange
             var expected = new TestClass
             {
+                ObjectProperty = new object(),
                 StringProperty = A.Dummy<string>(),
                 VersionProperty = A.Dummy<Version>(),
                 UriProperty = A.Dummy<Uri>(),
@@ -78,6 +79,57 @@ namespace OBeautifulCode.Cloning.Recipes.Test
                 ObjectListProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ObjectListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ObjectReadOnlyListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
+            };
+
+            // Act
+            var actual = expected.DeepClone<TestClass>();
+
+            // Assert
+            actual.AsTest().Must().NotBeSameReferenceAs(expected);
+            actual.AsTest().Must().BeEqualTo(expected);
+        }
+
+        [Fact]
+        public static void DeepClone_T___Should_deep_clone_objects___When_all_collection_and_dictionary_properties_are_empty()
+        {
+            // Arrange
+            var expected = new TestClass
+            {
+                ObjectProperty = new object(),
+                StringProperty = A.Dummy<string>(),
+                VersionProperty = A.Dummy<Version>(),
+                UriProperty = A.Dummy<Uri>(),
+                TestInterfaceClassProperty = A.Dummy<TestInterfaceClass>(),
+                TestArrayProperty = new TestClassElement[0],
+                DictionaryProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                DictionaryInterfaceProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                ReadOnlyDictionaryProperty = new ReadOnlyDictionary<TestClassElement, TestClassElement>(new Dictionary<TestClassElement, TestClassElement>()),
+                ReadOnlyDictionaryInterfaceProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                ConcurrentDictionaryProperty = new ConcurrentDictionary<TestClassElement, TestClassElement>(new Dictionary<TestClassElement, TestClassElement>()),
+                CollectionProperty = new Collection<TestClassElement>(),
+                CollectionInterfaceProperty = new Collection<TestClassElement>(),
+                ReadOnlyCollectionProperty = new ReadOnlyCollection<TestClassElement>(new List<TestClassElement>()),
+                ReadOnlyCollectionInterfaceProperty = new List<TestClassElement>(),
+                ListProperty = new List<TestClassElement>(),
+                ListInterfaceProperty = new List<TestClassElement>(),
+                ReadOnlyListInterfaceProperty = new List<TestClassElement>(),
+                ObjectStringProperty = A.Dummy<string>(),
+                ObjectVersionProperty = A.Dummy<Version>(),
+                ObjectUriProperty = A.Dummy<Uri>(),
+                ObjectTestInterfaceClassProperty = A.Dummy<TestInterfaceClass>(),
+                ObjectTestArrayProperty = new TestClassElement[0],
+                ObjectDictionaryProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                ObjectDictionaryInterfaceProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                ObjectReadOnlyDictionaryProperty = new ReadOnlyDictionary<TestClassElement, TestClassElement>(new Dictionary<TestClassElement, TestClassElement>()),
+                ObjectReadOnlyDictionaryInterfaceProperty = new Dictionary<TestClassElement, TestClassElement>(),
+                ObjectConcurrentDictionaryProperty = new ConcurrentDictionary<TestClassElement, TestClassElement>(new Dictionary<TestClassElement, TestClassElement>()),
+                ObjectCollectionProperty = new Collection<TestClassElement>(),
+                ObjectCollectionInterfaceProperty = new Collection<TestClassElement>(),
+                ObjectReadOnlyCollectionProperty = new ReadOnlyCollection<TestClassElement>(new List<TestClassElement>()),
+                ObjectReadOnlyCollectionInterfaceProperty = new List<TestClassElement>(),
+                ObjectListProperty = new List<TestClassElement>(),
+                ObjectListInterfaceProperty = new List<TestClassElement>(),
+                ObjectReadOnlyListInterfaceProperty = new List<TestClassElement>(),
             };
 
             // Act
@@ -199,6 +251,8 @@ namespace OBeautifulCode.Cloning.Recipes.Test
 
         private class TestClass : IDeepCloneable<TestClass>, IEquatable<TestClass>
         {
+            public object ObjectProperty { get; set; }
+
             public string StringProperty { get; set; }
 
             public Version VersionProperty { get; set; }
@@ -271,40 +325,41 @@ namespace OBeautifulCode.Cloning.Recipes.Test
             {
                 var result = new TestClass
                 {
-                    StringProperty = this.StringProperty.DeepClone<string>(),
-                    VersionProperty = this.VersionProperty.DeepClone<Version>(),
-                    UriProperty = this.UriProperty.DeepClone<Uri>(),
-                    TestInterfaceClassProperty = this.TestInterfaceClassProperty.DeepClone<ITestInterface>(),
-                    TestArrayProperty = this.TestArrayProperty.DeepClone<TestClassElement[]>(),
-                    DictionaryProperty = this.DictionaryProperty.DeepClone<IDictionary<TestClassElement, TestClassElement>>(),
-                    DictionaryInterfaceProperty = this.DictionaryInterfaceProperty.DeepClone<IDictionary<TestClassElement, TestClassElement>>(),
-                    ReadOnlyDictionaryProperty = this.ReadOnlyDictionaryProperty.DeepClone<ReadOnlyDictionary<TestClassElement, TestClassElement>>(),
-                    ReadOnlyDictionaryInterfaceProperty = this.ReadOnlyDictionaryInterfaceProperty.DeepClone<IReadOnlyDictionary<TestClassElement, TestClassElement>>(),
-                    ConcurrentDictionaryProperty = this.ConcurrentDictionaryProperty.DeepClone<ConcurrentDictionary<TestClassElement, TestClassElement>>(),
-                    CollectionProperty = this.CollectionProperty.DeepClone<Collection<TestClassElement>>(),
-                    CollectionInterfaceProperty = this.CollectionInterfaceProperty.DeepClone<ICollection<TestClassElement>>(),
-                    ReadOnlyCollectionProperty = this.ReadOnlyCollectionProperty.DeepClone<ReadOnlyCollection<TestClassElement>>(),
-                    ReadOnlyCollectionInterfaceProperty = this.ReadOnlyCollectionInterfaceProperty.DeepClone<IReadOnlyCollection<TestClassElement>>(),
-                    ListProperty = this.ListProperty.DeepClone<List<TestClassElement>>(),
-                    ListInterfaceProperty = this.ListInterfaceProperty.DeepClone<IList<TestClassElement>>(),
-                    ReadOnlyListInterfaceProperty = this.ReadOnlyListInterfaceProperty.DeepClone<IReadOnlyList<TestClassElement>>(),
-                    ObjectStringProperty = this.ObjectStringProperty.DeepClone<object>(),
-                    ObjectVersionProperty = this.ObjectVersionProperty.DeepClone<object>(),
-                    ObjectUriProperty = this.ObjectUriProperty.DeepClone<object>(),
-                    ObjectTestInterfaceClassProperty = this.ObjectTestInterfaceClassProperty.DeepClone<object>(),
-                    ObjectTestArrayProperty = this.ObjectTestArrayProperty.DeepClone<object>(),
-                    ObjectDictionaryProperty = this.ObjectDictionaryProperty.DeepClone<object>(),
-                    ObjectDictionaryInterfaceProperty = this.ObjectDictionaryInterfaceProperty.DeepClone<object>(),
-                    ObjectReadOnlyDictionaryProperty = this.ObjectReadOnlyDictionaryProperty.DeepClone<object>(),
-                    ObjectReadOnlyDictionaryInterfaceProperty = this.ObjectReadOnlyDictionaryInterfaceProperty.DeepClone<object>(),
-                    ObjectConcurrentDictionaryProperty = this.ObjectConcurrentDictionaryProperty.DeepClone<object>(),
-                    ObjectCollectionProperty = this.ObjectCollectionProperty.DeepClone<object>(),
-                    ObjectCollectionInterfaceProperty = this.ObjectCollectionInterfaceProperty.DeepClone<object>(),
-                    ObjectReadOnlyCollectionProperty = this.ObjectReadOnlyCollectionProperty.DeepClone<object>(),
-                    ObjectReadOnlyCollectionInterfaceProperty = this.ObjectReadOnlyCollectionInterfaceProperty.DeepClone<object>(),
-                    ObjectListProperty = this.ObjectListProperty.DeepClone<object>(),
-                    ObjectListInterfaceProperty = this.ObjectListInterfaceProperty.DeepClone<object>(),
-                    ObjectReadOnlyListInterfaceProperty = this.ObjectReadOnlyListInterfaceProperty.DeepClone<object>(),
+                    ObjectProperty = this.ObjectProperty?.DeepClone<object>(),
+                    StringProperty = this.StringProperty?.DeepClone<string>(),
+                    VersionProperty = this.VersionProperty?.DeepClone<Version>(),
+                    UriProperty = this.UriProperty?.DeepClone<Uri>(),
+                    TestInterfaceClassProperty = this.TestInterfaceClassProperty?.DeepClone<ITestInterface>(),
+                    TestArrayProperty = this.TestArrayProperty?.DeepClone<TestClassElement[]>(),
+                    DictionaryProperty = this.DictionaryProperty?.DeepClone<IDictionary<TestClassElement, TestClassElement>>(),
+                    DictionaryInterfaceProperty = this.DictionaryInterfaceProperty?.DeepClone<IDictionary<TestClassElement, TestClassElement>>(),
+                    ReadOnlyDictionaryProperty = this.ReadOnlyDictionaryProperty?.DeepClone<ReadOnlyDictionary<TestClassElement, TestClassElement>>(),
+                    ReadOnlyDictionaryInterfaceProperty = this.ReadOnlyDictionaryInterfaceProperty?.DeepClone<IReadOnlyDictionary<TestClassElement, TestClassElement>>(),
+                    ConcurrentDictionaryProperty = this.ConcurrentDictionaryProperty?.DeepClone<ConcurrentDictionary<TestClassElement, TestClassElement>>(),
+                    CollectionProperty = this.CollectionProperty?.DeepClone<Collection<TestClassElement>>(),
+                    CollectionInterfaceProperty = this.CollectionInterfaceProperty?.DeepClone<ICollection<TestClassElement>>(),
+                    ReadOnlyCollectionProperty = this.ReadOnlyCollectionProperty?.DeepClone<ReadOnlyCollection<TestClassElement>>(),
+                    ReadOnlyCollectionInterfaceProperty = this.ReadOnlyCollectionInterfaceProperty?.DeepClone<IReadOnlyCollection<TestClassElement>>(),
+                    ListProperty = this.ListProperty?.DeepClone<List<TestClassElement>>(),
+                    ListInterfaceProperty = this.ListInterfaceProperty?.DeepClone<IList<TestClassElement>>(),
+                    ReadOnlyListInterfaceProperty = this.ReadOnlyListInterfaceProperty?.DeepClone<IReadOnlyList<TestClassElement>>(),
+                    ObjectStringProperty = this.ObjectStringProperty?.DeepClone<object>(),
+                    ObjectVersionProperty = this.ObjectVersionProperty?.DeepClone<object>(),
+                    ObjectUriProperty = this.ObjectUriProperty?.DeepClone<object>(),
+                    ObjectTestInterfaceClassProperty = this.ObjectTestInterfaceClassProperty?.DeepClone<object>(),
+                    ObjectTestArrayProperty = this.ObjectTestArrayProperty?.DeepClone<object>(),
+                    ObjectDictionaryProperty = this.ObjectDictionaryProperty?.DeepClone<object>(),
+                    ObjectDictionaryInterfaceProperty = this.ObjectDictionaryInterfaceProperty?.DeepClone<object>(),
+                    ObjectReadOnlyDictionaryProperty = this.ObjectReadOnlyDictionaryProperty?.DeepClone<object>(),
+                    ObjectReadOnlyDictionaryInterfaceProperty = this.ObjectReadOnlyDictionaryInterfaceProperty?.DeepClone<object>(),
+                    ObjectConcurrentDictionaryProperty = this.ObjectConcurrentDictionaryProperty?.DeepClone<object>(),
+                    ObjectCollectionProperty = this.ObjectCollectionProperty?.DeepClone<object>(),
+                    ObjectCollectionInterfaceProperty = this.ObjectCollectionInterfaceProperty?.DeepClone<object>(),
+                    ObjectReadOnlyCollectionProperty = this.ObjectReadOnlyCollectionProperty?.DeepClone<object>(),
+                    ObjectReadOnlyCollectionInterfaceProperty = this.ObjectReadOnlyCollectionInterfaceProperty?.DeepClone<object>(),
+                    ObjectListProperty = this.ObjectListProperty?.DeepClone<object>(),
+                    ObjectListInterfaceProperty = this.ObjectListInterfaceProperty?.DeepClone<object>(),
+                    ObjectReadOnlyListInterfaceProperty = this.ObjectReadOnlyListInterfaceProperty?.DeepClone<object>(),
                 };
 
                 return result;
@@ -344,6 +399,7 @@ namespace OBeautifulCode.Cloning.Recipes.Test
                 }
 
                 var result =
+                    this.ObjectProperty.IsEqualTo(other.ObjectProperty) &&
                     this.StringProperty.IsEqualTo(other.StringProperty) &&
                     this.VersionProperty.IsEqualTo(other.VersionProperty) &&
                     this.UriProperty.IsEqualTo(other.UriProperty) &&
@@ -385,6 +441,7 @@ namespace OBeautifulCode.Cloning.Recipes.Test
             public override bool Equals(object obj) => this == (obj as TestClass);
 
             public override int GetHashCode() => HashCodeHelper.Initialize()
+                .Hash(this.ObjectProperty)
                 .Hash(this.StringProperty)
                 .Hash(this.VersionProperty)
                 .Hash(this.UriProperty)

@@ -36,37 +36,37 @@ namespace OBeautifulCode.Cloning.Recipes
     static class CloningExtensions
     {
         private static readonly MethodInfo DeepCloneDictionaryMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(Dictionary<,>)));
 
         private static readonly MethodInfo DeepCloneReadOnlyDictionaryMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(ReadOnlyDictionary<,>)));
 
         private static readonly MethodInfo DeepCloneConcurrentDictionaryMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(ConcurrentDictionary<,>)));
 
         private static readonly MethodInfo DeepCloneListMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(List<>)));
 
         private static readonly MethodInfo DeepCloneCollectionMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(Collection<>)));
 
         private static readonly MethodInfo DeepCloneReadOnlyCollectionMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsGenericType && (_.ReturnType.GetGenericTypeDefinition() == typeof(ReadOnlyCollection<>)));
 
         private static readonly MethodInfo DeepCloneArrayMethod = typeof(CloningExtensions)
-            .GetMethods()
+            .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
             .Where(_ => _.Name == nameof(DeepClone))
             .Single(_ => _.ReturnType.IsArray);
 
@@ -164,205 +164,6 @@ namespace OBeautifulCode.Cloning.Recipes
             return result;
         }
 
-        /// <summary>
-        /// Deep clones a <see cref="Dictionary{TKey, TValue}"/> value.
-        /// </summary>
-        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
-        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static Dictionary<TKey, TValue> DeepClone<TKey, TValue>(
-            Dictionary<TKey, TValue> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var result = new Dictionary<TKey, TValue>(value.Count);
-
-            foreach (var kvp in value)
-            {
-                result.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones a <see cref="ReadOnlyDictionary{TKey, TValue}"/> value.
-        /// </summary>
-        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
-        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static ReadOnlyDictionary<TKey, TValue> DeepClone<TKey, TValue>(
-            ReadOnlyDictionary<TKey, TValue> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var dictionary = new Dictionary<TKey, TValue>(value.Count);
-
-            foreach (var kvp in value)
-            {
-                dictionary.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
-            }
-
-            var result = new ReadOnlyDictionary<TKey, TValue>(dictionary);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones a <see cref="ConcurrentDictionary{TKey, TValue}"/> value.
-        /// </summary>
-        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
-        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static ConcurrentDictionary<TKey, TValue> DeepClone<TKey, TValue>(
-            ConcurrentDictionary<TKey, TValue> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var dictionary = new Dictionary<TKey, TValue>(value.Count);
-
-            foreach (var kvp in value)
-            {
-                dictionary.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
-            }
-
-            var result = new ConcurrentDictionary<TKey, TValue>(dictionary);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones a <see cref="List{T}"/> value.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements in the list.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists", Justification = "Required by DeepCloneInternal<T>.")]
-        public static List<T> DeepClone<T>(
-            List<T> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var result = new List<T>(value.Count);
-
-            foreach (var element in value)
-            {
-                result.Add(element.DeepCloneInternal());
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones a <see cref="Collection{T}"/> value.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements in the collection.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static Collection<T> DeepClone<T>(
-            Collection<T> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var result = new Collection<T>();
-
-            foreach (var element in value)
-            {
-                result.Add(element.DeepCloneInternal());
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones a <see cref="ReadOnlyCollection{T}"/> value.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements in the read-only collection.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static ReadOnlyCollection<T> DeepClone<T>(
-            ReadOnlyCollection<T> value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var list = new List<T>(value.Count);
-
-            foreach (var element in value)
-            {
-                list.Add(element.DeepCloneInternal());
-            }
-
-            var result = new ReadOnlyCollection<T>(list);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Deep clones an array value.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements in the array.</typeparam>
-        /// <param name="value">The value to deep clone.</param>
-        /// <returns>
-        /// A deep clone of the specified value.
-        /// </returns>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public static T[] DeepClone<T>(
-            T[] value)
-        {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            var result = new T[value.Length];
-
-            for (var x = 0; x < value.Length; x++)
-            {
-                result[x] = value[x].DeepCloneInternal();
-            }
-
-            return result;
-        }
-
         private static T DeepCloneInternal<T>(
             this T value)
         {
@@ -382,6 +183,10 @@ namespace OBeautifulCode.Cloning.Recipes
                 {
                     // This covers Nullable types as well.
                     result = value;
+                }
+                else if ((declaredType == typeof(object)) && (runtimeType == typeof(object)))
+                {
+                    result = new object();
                 }
                 else if (value is IDeepCloneable<T> deepCloneableValue)
                 {
@@ -481,6 +286,138 @@ namespace OBeautifulCode.Cloning.Recipes
             }
 
             return (T)result;
+        }
+
+        private static Dictionary<TKey, TValue> DeepClone<TKey, TValue>(
+            Dictionary<TKey, TValue> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var result = new Dictionary<TKey, TValue>(value.Count);
+
+            foreach (var kvp in value)
+            {
+                result.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
+            }
+
+            return result;
+        }
+
+        private static ReadOnlyDictionary<TKey, TValue> DeepClone<TKey, TValue>(
+            ReadOnlyDictionary<TKey, TValue> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var dictionary = new Dictionary<TKey, TValue>(value.Count);
+
+            foreach (var kvp in value)
+            {
+                dictionary.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
+            }
+
+            var result = new ReadOnlyDictionary<TKey, TValue>(dictionary);
+
+            return result;
+        }
+
+        private static ConcurrentDictionary<TKey, TValue> DeepClone<TKey, TValue>(
+            ConcurrentDictionary<TKey, TValue> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var dictionary = new Dictionary<TKey, TValue>(value.Count);
+
+            foreach (var kvp in value)
+            {
+                dictionary.Add(kvp.Key.DeepCloneInternal(), kvp.Value.DeepCloneInternal());
+            }
+
+            var result = new ConcurrentDictionary<TKey, TValue>(dictionary);
+
+            return result;
+        }
+
+        private static List<T> DeepClone<T>(
+            List<T> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var result = new List<T>(value.Count);
+
+            foreach (var element in value)
+            {
+                result.Add(element.DeepCloneInternal());
+            }
+
+            return result;
+        }
+
+        private static Collection<T> DeepClone<T>(
+            Collection<T> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var result = new Collection<T>();
+
+            foreach (var element in value)
+            {
+                result.Add(element.DeepCloneInternal());
+            }
+
+            return result;
+        }
+
+        private static ReadOnlyCollection<T> DeepClone<T>(
+            ReadOnlyCollection<T> value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var list = new List<T>(value.Count);
+
+            foreach (var element in value)
+            {
+                list.Add(element.DeepCloneInternal());
+            }
+
+            var result = new ReadOnlyCollection<T>(list);
+
+            return result;
+        }
+
+        private static T[] DeepClone<T>(
+            T[] value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var result = new T[value.Length];
+
+            for (var x = 0; x < value.Length; x++)
+            {
+                result[x] = value[x].DeepCloneInternal();
+            }
+
+            return result;
         }
     }
 }
