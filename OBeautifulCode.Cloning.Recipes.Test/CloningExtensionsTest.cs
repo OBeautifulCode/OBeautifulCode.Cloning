@@ -39,6 +39,25 @@ namespace OBeautifulCode.Cloning.Recipes.Test
         }
 
         [Fact]
+        public static void DeepClone_T___Should_throw_NotSupportedException___When_parameter_value_is_not_cloneable()
+        {
+            // Arrange
+            var value1 = new NotCloneableClass1();
+            var value2 = new NotCloneableClass2();
+
+            // Act
+            var actual1 = Record.Exception(() => value1.DeepClone<NotCloneableClass1>());
+            var actual2 = Record.Exception(() => value2.DeepClone<ITestInterface>());
+
+            // Assert
+            actual1.AsTest().Must().BeOfType<NotSupportedException>();
+            actual1.Message.AsTest().Must().ContainString("I do not know how to deep clone an object of type");
+
+            actual2.AsTest().Must().BeOfType<NotSupportedException>();
+            actual2.Message.AsTest().Must().ContainString("I do not know how to deep clone an object of type");
+        }
+
+        [Fact]
         public static void DeepClone_T___Should_deep_clone_objects___When_called()
         {
             // Arrange
@@ -246,6 +265,14 @@ namespace OBeautifulCode.Cloning.Recipes.Test
 
         #pragma warning disable SA1201 // Elements should appear in the correct order
         private interface ITestInterface
+        {
+        }
+
+        private class NotCloneableClass1
+        {
+        }
+
+        private class NotCloneableClass2 : ITestInterface
         {
         }
 
