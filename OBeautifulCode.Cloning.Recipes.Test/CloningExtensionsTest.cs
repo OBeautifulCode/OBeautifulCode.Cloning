@@ -85,7 +85,7 @@ namespace OBeautifulCode.Cloning.Recipes.Test
                 ReadOnlyCollectionInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ListProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
-                ReadOnlyListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
+                ReadOnlyListInterfaceProperty = new TestClassElement[] { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ObjectStringProperty = A.Dummy<string>(),
                 ObjectVersionProperty = A.Dummy<Version>(),
                 ObjectUriProperty = A.Dummy<Uri>(),
@@ -102,7 +102,7 @@ namespace OBeautifulCode.Cloning.Recipes.Test
                 ObjectReadOnlyCollectionInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ObjectListProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
                 ObjectListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
-                ObjectReadOnlyListInterfaceProperty = new List<TestClassElement> { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
+                ObjectReadOnlyListInterfaceProperty = new TestClassElement[] { A.Dummy<TestClassElement>(), null, A.Dummy<TestClassElement>() },
             };
 
             // Act
