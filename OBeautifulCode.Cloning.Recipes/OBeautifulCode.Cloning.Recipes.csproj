@@ -55,6 +55,7 @@
     <Compile Include="Properties\ProjectInfo.cs" />
     <AdditionalFiles Include=".analyzers\stylecop.json" />
     <None Include=".analyzers\release.ruleset" />
+    <None Include="CloningExtensionsForUseInTypeAssemblyOnly.recipe-nuspec" />
     <None Include="packages.config" />
     <None Include="CloningExtensions.recipe-nuspec" />
   </ItemGroup>

@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>OBeautifulCode.Cloning.Recipes.CloningExtensions</id>
-    <description>Various extension methods for cloning objects.</description>
+    <id>OBeautifulCode.Cloning.Recipes.CloningExtensions.ForUseInTypeAssemblyOnly</id>
+    <description>Various extension methods for cloning objects.  Should only be used in OBeautifulCode.Type.  Does not declare OBeautifulCode.Type nor any recipes in that solution as a dependency.</description>
     <tags>snippet codeinclude utility shared recipe Cloning</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.Cloning/main/OBeautifulCode.Cloning.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.15" />
-      <dependency id="OBeautifulCode.Type" version="1.0.80" />
-      <dependency id="OBeautifulCode.Type.Recipes.TypeExtensions" version="1.0.80" />
     </dependencies>
   </metadata>
   <files>
